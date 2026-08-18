@@ -185,6 +185,7 @@
             <span class="pill" data-v="Association">Association</span>
             <span class="pill" data-v="Other">Other</span>
           </div>
+          <input type="text" id="who_other" placeholder="Please specify (optional)" style="display:none;margin-top:10px"/>
         </div>
 
         <div class="block">
@@ -328,7 +329,9 @@
   })();
 
   /* describes-you (multi) */
-  document.querySelectorAll('#who .pill').forEach(function(p){ p.addEventListener('click',function(){ p.classList.toggle('on'); }); });
+  document.querySelectorAll('#who .pill').forEach(function(p){ p.addEventListener('click',function(){ p.classList.toggle('on');
+    if(p.getAttribute('data-v')==='Other'){ var wo=$('who_other'); var on=p.classList.contains('on'); wo.style.display=on?'block':'none'; if(on) wo.focus(); else wo.value=''; }
+  }); });
   /* produce chips (multi) */
   document.querySelectorAll('#prods .chip').forEach(function(c){
     c.addEventListener('click',function(){ c.classList.toggle('on');
@@ -365,7 +368,7 @@
 
     var payload={
       exporter_type:exporter.join(', '), importer_type:importer.join(', '),
-      type_other:(desc.indexOf('Other')>=0?'Other':''), descriptors:desc,
+      type_other:(desc.indexOf('Other')>=0?(val('who_other')||'Other'):''), descriptors:desc,
       name:val('name'), role:val('role'), company:company, phone:phone, email:email,
       country:val('country'),
       products_industries:val('products_industries'), trade_countries:val('trade_countries'), annual_quantity:val('annual_quantity'),
