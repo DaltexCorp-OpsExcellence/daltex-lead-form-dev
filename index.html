@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#16213a"/>
+<title>Daltex — Registration</title>
+<style>
+  :root{
+    --navy:#1b2740; --navy-deep:#0d1424; --navy-card:#1c2942; --navy-card2:#233155; --navy-inset:#141d33;
+    --orange:#e2662a; --orange-l:#f27a3d; --orange-d:#c9551f;
+    --brass:#c9a860; --brass-2:#e3c883;
+    --text:#eef1f7; --text2:#c4ccdd; --muted:#8b95ac;
+    --line:rgba(255,255,255,.10); --line2:rgba(255,255,255,.17);
+    --brass-line:rgba(201,168,96,.22); --focus:rgba(242,122,61,.32);
+    --err:#ff8f8f;
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--body);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(120% 70% at 50% -8%, #2a3a60 0%, #16213a 46%, var(--navy-deep) 100%) no-repeat, var(--navy-deep);
+    min-height:100vh}
+  .stage{max-width:600px;margin:0 auto;padding:22px 14px 46px}
+
+  .card{max-width:560px;margin:0 auto;position:relative;background:linear-gradient(180deg,var(--navy-card2) 0%,var(--navy-card) 26%,#18233c 100%);
+    border:1px solid var(--line2);border-radius:20px;overflow:hidden;
+    box-shadow:0 40px 90px -20px rgba(0,0,0,.7),0 2px 0 rgba(255,255,255,.04) inset}
+  .card:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--brass) 20%,var(--brass-2) 50%,var(--brass) 80%,transparent)}
+
+  .hero{position:relative;overflow:hidden;padding:30px 24px 24px;text-align:center;
+    background:radial-gradient(120% 120% at 50% -30%,#2b3c62 0%,transparent 60%)}
+  .hero .furrow{position:absolute;right:-26px;bottom:-16px;width:220px;height:126px;opacity:.09;pointer-events:none}
+  .ev-name{display:none;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-2);margin:0 0 12px}
+  .cobrand{display:flex;align-items:center;justify-content:center;gap:15px}
+  .wordmark{font-family:var(--serif);font-weight:600;font-size:30px;letter-spacing:.02em;line-height:1;color:#fff}
+  .wordmark span{color:var(--orange)}
+  .cobrand .div{display:none;width:1px;height:33px;background:var(--brass);opacity:.55}
+  .ev-logo{display:none;background:#fff;border-radius:9px;padding:6px 10px;line-height:0}
+  .ev-logo img{display:block;max-height:38px;max-width:130px;width:auto;height:auto}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:21px;margin:18px 0 5px;color:#fff;text-wrap:balance}
+  .hero p{font-size:13px;color:var(--text2);margin:0 auto;max-width:40ch}
+  .hero .rule{height:1px;background:linear-gradient(90deg,transparent,var(--brass-line),transparent);margin:20px 0 0}
+
+  .body{padding:8px 22px 24px}
+  .sec{font-family:var(--serif);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-2);margin:0 0 14px;display:flex;align-items:baseline;gap:9px}
+  .sec .n{font-family:var(--body);font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.02em;text-transform:none}
+  .block{border-top:1px solid var(--brass-line);padding-top:22px;margin-top:24px}
+  .block:first-child{border-top:none;padding-top:6px;margin-top:0}
+  .field{margin-bottom:14px}
+  label.fl{display:block;font-size:13px;font-weight:600;color:var(--text2);margin:0 0 6px}
+  .req:after{content:" *";color:var(--orange-l)}
+  .opt-tag{font-weight:400;color:var(--muted);font-size:12px}
+
+  input[type=text],input[type=email],input[type=tel],textarea{width:100%;font-family:inherit;font-size:16px;color:var(--text);background:var(--navy-inset);border:1px solid var(--line2);border-radius:11px;padding:13px 14px;transition:border-color .14s,box-shadow .14s,background .14s}
+  input::placeholder,textarea::placeholder{color:#6f7a92}
+  input:focus,textarea:focus{outline:none;border-color:var(--orange);background:#18223b;box-shadow:0 0 0 3px var(--focus),0 0 18px -4px rgba(242,122,61,.5)}
+  input.bad{border-color:rgba(255,120,120,.6);box-shadow:0 0 0 3px rgba(255,120,120,.18)}
+  textarea{resize:vertical;min-height:78px}
+
+  /* phone */
+  .tel{display:flex;gap:8px}
+  .dial{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;background:var(--navy-inset);border:1px solid var(--line2);border-radius:11px;padding:0 13px;color:var(--text);font-size:15px;cursor:pointer;min-height:50px;transition:border-color .14s}
+  .dial:hover{border-color:var(--orange)}
+  .dial .cflag{font-size:18px}
+  .dial .code{font-variant-numeric:tabular-nums}
+  .dial .car{color:var(--muted);font-size:11px;margin-left:1px}
+  .tel input{flex:1 1 auto;min-width:0}
+  .hint2{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.4}
+  .hint2 b{color:var(--text2);font-weight:600}
+  /* combobox / dropdown */
+  .combo{position:relative}
+  .menu{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;background:#16203a;border:1px solid var(--line2);border-radius:13px;box-shadow:0 26px 60px -12px rgba(0,0,0,.75);max-height:298px;overflow-y:auto}
+  .menu:not(.open){display:none}
+  .menu .search{position:sticky;top:0;background:#16203a;padding:8px;border-bottom:1px solid var(--line);z-index:1}
+  .mlist{padding:2px 0}
+  .mi{display:flex;align-items:center;gap:11px;padding:11px 14px;cursor:pointer;font-size:15px;color:var(--text)}
+  .mi:hover{background:rgba(255,255,255,.06)}
+  .mi .cflag{font-size:18px;flex:0 0 auto}
+  .mi .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mi .code{margin-left:auto;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+  .mi-empty{padding:16px;color:var(--muted);font-size:13px;text-align:center}
+
+  /* pills */
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{display:inline-flex;align-items:center;min-height:42px;border:1px solid var(--line2);border-radius:22px;padding:9px 16px;font-size:14px;color:var(--text2);cursor:pointer;background:rgba(255,255,255,.03);user-select:none;transition:transform .12s,box-shadow .12s,border-color .12s,background .12s,color .12s}
+  .pill:active{transform:translateY(1px)}
+  .pill.on{border-color:var(--orange);background:rgba(226,102,42,.18);color:#fff;font-weight:600;box-shadow:0 4px 14px -2px rgba(226,102,42,.4)}
+
+  /* produce chips */
+  .season{font-size:12px;color:var(--muted);margin:0 0 10px}
+  .season b{color:var(--brass-2);font-weight:600}
+  .prods{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .chip{position:relative;display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:12px;padding:12px 12px;font-size:14.5px;color:var(--text);cursor:pointer;background:rgba(255,255,255,.03);user-select:none;min-height:50px;transition:transform .12s,box-shadow .12s,border-color .12s,background .12s}
+  .chip .g{font-size:20px;line-height:1;width:24px;text-align:center}
+  .chip:active{transform:translateY(1px)}
+  .chip.on{border-color:var(--orange);background:rgba(226,102,42,.16);transform:translateY(-1px);box-shadow:0 6px 16px -4px rgba(226,102,42,.45)}
+  .chip .tick{position:absolute;top:0;right:0;width:0;height:0;border-top:20px solid var(--orange);border-left:20px solid transparent;border-radius:0 12px 0 0;opacity:0;transition:opacity .12s}
+  .chip .tick:after{content:"\2713";position:absolute;top:-19px;right:1px;color:#fff;font-size:9px;font-weight:800}
+  .chip.on .tick{opacity:1}
+
+  .consent{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:14px;border:1px solid var(--line2);border-radius:12px;background:rgba(255,255,255,.03);cursor:pointer;min-height:54px}
+  .consent input{width:21px;height:21px;margin-top:1px;accent-color:var(--orange);flex:0 0 auto}
+  .consent .ct{font-size:13px;color:var(--text2)}
+  .consent .ct small{display:block;color:var(--muted);margin-top:2px;font-size:12px}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .submit{width:100%;margin-top:18px;background:linear-gradient(180deg,var(--orange-l),var(--orange));color:#fff;font-size:16px;font-weight:700;letter-spacing:.02em;border:none;border-radius:13px;padding:17px;cursor:pointer;box-shadow:0 10px 26px -6px rgba(226,102,42,.55);transition:transform .1s,box-shadow .1s,opacity .15s}
+  .submit:active{transform:translateY(1px);box-shadow:0 5px 14px -6px rgba(226,102,42,.5)}
+  .submit:disabled{opacity:.4;cursor:default;box-shadow:none}
+  .msg{margin-top:12px;font-size:13px;padding:11px 13px;border-radius:10px;display:none}
+  .msg.err{display:block;background:rgba(255,120,120,.12);border:1px solid rgba(255,120,120,.4);color:var(--err)}
+  .foot{max-width:560px;margin:16px auto 0;text-align:center;color:var(--muted);font-size:11px}
+
+  .badlink{max-width:560px;margin:0 auto;display:none;text-align:center;background:var(--navy-card);border:1px solid var(--line2);border-radius:20px;padding:44px 26px;color:var(--text2);font-size:15px}
+  .badlink .wm{font-family:var(--serif);font-size:26px;color:#fff;margin-bottom:14px}
+  .badlink .wm span{color:var(--orange)}
+
+  .done{max-width:560px;margin:0 auto;display:none;text-align:center;position:relative;overflow:hidden;background:linear-gradient(180deg,var(--navy-card2),#18233c);border:1px solid var(--line2);border-radius:20px;padding:46px 26px;box-shadow:0 40px 90px -20px rgba(0,0,0,.7)}
+  .done:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--brass) 20%,var(--brass-2) 50%,var(--brass) 80%,transparent)}
+  .done.show{display:block}
+  .disc{width:70px;height:70px;margin:0 auto 20px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#2b3c62,#16213a);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px var(--brass),0 0 30px -4px rgba(201,168,96,.5)}
+  .disc svg{width:34px;height:34px}
+  .disc path{stroke:var(--orange-l);stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:draw .5s ease .12s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .done h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 9px;color:#fff}
+  .done p{color:var(--text2);font-size:14px;margin:0 auto;max-width:36ch}
+  .done .ptime{color:var(--brass-2);font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} .disc path{stroke-dashoffset:0} }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card" id="card" style="display:none">
+      <div class="hero">
+        <svg class="furrow" viewBox="0 0 220 126" fill="none" stroke="#e3c883" stroke-width="2" aria-hidden="true">
+          <path d="M-4 36 C64 12 156 12 224 36"/><path d="M-4 60 C64 36 156 36 224 60"/>
+          <path d="M-4 84 C64 60 156 60 224 84"/><path d="M-4 108 C64 84 156 84 224 108"/>
+        </svg>
+        <div class="ev-name" id="evName"></div>
+        <div class="cobrand">
+          <div class="wordmark">DAL<span>TEX</span></div>
+          <div class="div" id="evDiv"></div>
+          <div class="ev-logo" id="evLogo"><img id="evLogoImg" alt="Event logo"/></div>
+        </div>
+        <h1>Let&rsquo;s talk fresh produce</h1>
+        <p>Direct from the fields of Egypt &mdash; leave your details and our commercial team will reach out.</p>
+        <div class="rule"></div>
+      </div>
+
+      <form class="body" id="form" autocomplete="on" novalidate>
+        <div class="block">
+          <div class="sec">About you &amp; your company</div>
+          <div class="field"><label class="fl req">Company</label>
+            <input type="text" id="company" required placeholder="Your company" autocomplete="organization" autocapitalize="words"/></div>
+          <div class="field"><label class="fl">Full name</label>
+            <input type="text" id="name" placeholder="Full name" autocomplete="name" autocapitalize="words"/></div>
+          <div class="field"><label class="fl req">Email</label>
+            <input type="email" id="email" required placeholder="name@company.com" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false"/></div>
+          <div class="field" style="margin-bottom:0"><label class="fl">Phone <span class="opt-tag">&middot; or WhatsApp</span></label>
+            <div class="combo">
+              <div class="tel">
+                <button type="button" class="dial" id="dialBtn" aria-label="Country code"><span class="cflag" id="dialFlag">&#127466;&#127468;</span><span class="code" id="dialCode">+20</span><span class="car">&#9662;</span></button>
+                <input type="tel" id="phone" inputmode="tel" autocomplete="tel-national" placeholder="10 1234 5678"/>
+              </div>
+              <div class="menu" id="dialMenu"></div>
+            </div>
+            <div class="hint2" id="telHint">Pick your country code, then enter your number <b>without the leading 0</b> &mdash; e.g. 10 1234 5678</div></div>
+        </div>
+
+        <div class="block">
+          <div class="sec">What best describes you? <span class="n">select all that apply</span></div>
+          <div class="pills" id="who">
+            <span class="pill" data-v="Importer / Agent">Importer / Agent</span>
+            <span class="pill" data-v="Retailer">Retailer</span>
+            <span class="pill" data-v="Wholesaler">Wholesaler</span>
+            <span class="pill" data-v="Grower">Grower</span>
+            <span class="pill" data-v="Trader">Trader</span>
+            <span class="pill" data-v="Association">Association</span>
+            <span class="pill" data-v="Other">Other</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="sec">Your business</div>
+          <div class="field"><label class="fl">Country</label>
+            <div class="combo">
+              <input type="text" id="country" autocomplete="country-name" placeholder="Start typing your country&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false"/>
+              <div class="menu" id="countryMenu"></div>
+            </div></div>
+          <div class="field"><label class="fl">Job title</label>
+            <input type="text" id="role" placeholder="e.g. Head of Procurement" autocomplete="organization-title"/></div>
+          <div class="field"><label class="fl">Products / industries you deal in</label>
+            <input type="text" id="products_industries" placeholder="What you trade"/></div>
+          <div class="field"><label class="fl">Countries of export / import</label>
+            <input type="text" id="trade_countries" placeholder="e.g. UK, Germany, UAE"/></div>
+          <div class="field" style="margin-bottom:0"><label class="fl">Annual quantity handled</label>
+            <input type="text" id="annual_quantity" placeholder="e.g. 500 containers / season"/></div>
+        </div>
+
+        <div class="block">
+          <div class="sec">What you&rsquo;re looking for</div>
+          <div class="season">Produce you&rsquo;re interested in &middot; <b>in season now:</b> Grapes, Citrus, Mango, Pomegranate</div>
+          <div class="prods" id="prods">
+            <span class="chip" data-v="Grapes"><span class="g">&#127815;</span>Grapes<i class="tick"></i></span>
+            <span class="chip" data-v="Citrus"><span class="g">&#127818;</span>Citrus<i class="tick"></i></span>
+            <span class="chip" data-v="Mango"><span class="g">&#129389;</span>Mango<i class="tick"></i></span>
+            <span class="chip" data-v="Pomegranate"><span class="g">&#128308;</span>Pomegranate<i class="tick"></i></span>
+            <span class="chip" data-v="Potatoes"><span class="g">&#129364;</span>Potatoes<i class="tick"></i></span>
+            <span class="chip" data-v="Onions"><span class="g">&#129477;</span>Onions<i class="tick"></i></span>
+            <span class="chip" data-v="Spring Onions"><span class="g">&#127807;</span>Spring Onions<i class="tick"></i></span>
+            <span class="chip" data-v="Carrots"><span class="g">&#129365;</span>Carrots<i class="tick"></i></span>
+            <span class="chip" data-v="Sweet Potato"><span class="g">&#127840;</span>Sweet Potato<i class="tick"></i></span>
+            <span class="chip" data-v="Pumpkin"><span class="g">&#127875;</span>Pumpkin<i class="tick"></i></span>
+            <span class="chip" data-v="Peanuts"><span class="g">&#129372;</span>Peanuts<i class="tick"></i></span>
+            <span class="chip" data-v="Field Crops"><span class="g">&#127806;</span>Field Crops<i class="tick"></i></span>
+            <span class="chip" data-v="Other" id="prodOther"><span class="g">&#10133;</span>Other<i class="tick"></i></span>
+          </div>
+          <input type="text" id="products_other" placeholder="Which other products?" style="display:none;margin-top:9px"/>
+          <div class="field" style="margin:16px 0 0"><label class="fl">Anything you&rsquo;d like from Daltex</label>
+            <textarea id="notes" placeholder="Volumes, season windows, certifications, requirements&hellip;"></textarea></div>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label>Fax</label><input type="text" id="hp" name="fax" tabindex="-1" autocomplete="off"/></div>
+
+        <label class="consent" for="consent">
+          <input type="checkbox" id="consent" required/>
+          <span class="ct">I agree that Daltex may contact me about my enquiry.<small>We&rsquo;ll never share your details with anyone else.</small></span>
+        </label>
+
+        <button type="submit" class="submit" id="submit" disabled>Submit registration</button>
+        <div class="msg" id="msg"></div>
+      </form>
+    </div>
+
+    <div class="badlink" id="badlink">
+      <div class="wm">DAL<span>TEX</span></div>
+      This link isn&rsquo;t valid. Please scan the QR code at the Daltex stand to register.
+    </div>
+
+    <div class="done" id="done">
+      <div class="disc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <h2>Thank you &mdash; you&rsquo;re registered</h2>
+      <p>A Daltex commercial rep will email you <span class="ptime">within 2 business days</span>. Meanwhile, come say hello at the Daltex stand.</p>
+    </div>
+
+    <div class="foot">&copy; Daltex Corp &middot; Fresh produce export</div>
+  </div>
+
+<script>
+(function(){
+  var EP='https://sfyjvgjwvtwkrnqrvqyc.supabase.co/functions/v1/public-lead-intake';
+  var $=function(i){return document.getElementById(i);};
+  var qs=new URLSearchParams(location.search);
+  var token=qs.get('c');
+  if(!token){ $('badlink').style.display='block'; return; }
+  $('card').style.display='block';
+
+  /* event name + logo by token (keeps the QR short: ?c=token) */
+  fetch(EP+'?c='+encodeURIComponent(token)).then(function(r){return r.json();}).then(function(m){
+    if(!m||!m.ok) return;
+    if(m.name){ var e=$('evName'); e.textContent=m.name; e.style.display='block'; document.title='Daltex — '+m.name; }
+    if(m.logo_url){ var im=$('evLogoImg'); im.onload=function(){ $('evLogo').style.display='inline-block'; $('evDiv').style.display='block'; }; im.src=m.logo_url; }
+  }).catch(function(){});
+
+  /* ── country dataset (all sovereign states + key markets, Israel excluded) ── */
+  var CDATA="Afghanistan|AF|93;Albania|AL|355;Algeria|DZ|213;Andorra|AD|376;Angola|AO|244;Antigua and Barbuda|AG|1;Argentina|AR|54;Armenia|AM|374;Australia|AU|61;Austria|AT|43;Azerbaijan|AZ|994;Bahamas|BS|1;Bahrain|BH|973;Bangladesh|BD|880;Barbados|BB|1;Belarus|BY|375;Belgium|BE|32;Belize|BZ|501;Benin|BJ|229;Bhutan|BT|975;Bolivia|BO|591;Bosnia and Herzegovina|BA|387;Botswana|BW|267;Brazil|BR|55;Brunei|BN|673;Bulgaria|BG|359;Burkina Faso|BF|226;Burundi|BI|257;Cambodia|KH|855;Cameroon|CM|237;Canada|CA|1;Cape Verde|CV|238;Central African Republic|CF|236;Chad|TD|235;Chile|CL|56;China|CN|86;Colombia|CO|57;Comoros|KM|269;Congo (Brazzaville)|CG|242;Congo (Kinshasa)|CD|243;Costa Rica|CR|506;Croatia|HR|385;Cuba|CU|53;Cyprus|CY|357;Czechia|CZ|420;Denmark|DK|45;Djibouti|DJ|253;Dominica|DM|1;Dominican Republic|DO|1;Ecuador|EC|593;Egypt|EG|20;El Salvador|SV|503;Equatorial Guinea|GQ|240;Eritrea|ER|291;Estonia|EE|372;Eswatini|SZ|268;Ethiopia|ET|251;Fiji|FJ|679;Finland|FI|358;France|FR|33;Gabon|GA|241;Gambia|GM|220;Georgia|GE|995;Germany|DE|49;Ghana|GH|233;Greece|GR|30;Grenada|GD|1;Guatemala|GT|502;Guinea|GN|224;Guinea-Bissau|GW|245;Guyana|GY|592;Haiti|HT|509;Honduras|HN|504;Hong Kong|HK|852;Hungary|HU|36;Iceland|IS|354;India|IN|91;Indonesia|ID|62;Iran|IR|98;Iraq|IQ|964;Ireland|IE|353;Italy|IT|39;Ivory Coast|CI|225;Jamaica|JM|1;Japan|JP|81;Jordan|JO|962;Kazakhstan|KZ|7;Kenya|KE|254;Kosovo|XK|383;Kuwait|KW|965;Kyrgyzstan|KG|996;Laos|LA|856;Latvia|LV|371;Lebanon|LB|961;Lesotho|LS|266;Liberia|LR|231;Libya|LY|218;Liechtenstein|LI|423;Lithuania|LT|370;Luxembourg|LU|352;Macau|MO|853;Madagascar|MG|261;Malawi|MW|265;Malaysia|MY|60;Maldives|MV|960;Mali|ML|223;Malta|MT|356;Marshall Islands|MH|692;Mauritania|MR|222;Mauritius|MU|230;Mexico|MX|52;Micronesia|FM|691;Moldova|MD|373;Monaco|MC|377;Mongolia|MN|976;Montenegro|ME|382;Morocco|MA|212;Mozambique|MZ|258;Myanmar|MM|95;Namibia|NA|264;Nepal|NP|977;Netherlands|NL|31;New Zealand|NZ|64;Nicaragua|NI|505;Niger|NE|227;Nigeria|NG|234;North Korea|KP|850;North Macedonia|MK|389;Norway|NO|47;Oman|OM|968;Pakistan|PK|92;Palau|PW|680;Palestine|PS|970;Panama|PA|507;Papua New Guinea|PG|675;Paraguay|PY|595;Peru|PE|51;Philippines|PH|63;Poland|PL|48;Portugal|PT|351;Qatar|QA|974;Romania|RO|40;Russia|RU|7;Rwanda|RW|250;Saint Kitts and Nevis|KN|1;Saint Lucia|LC|1;Saint Vincent and the Grenadines|VC|1;Samoa|WS|685;San Marino|SM|378;Sao Tome and Principe|ST|239;Saudi Arabia|SA|966;Senegal|SN|221;Serbia|RS|381;Seychelles|SC|248;Sierra Leone|SL|232;Singapore|SG|65;Slovakia|SK|421;Slovenia|SI|386;Solomon Islands|SB|677;Somalia|SO|252;South Africa|ZA|27;South Korea|KR|82;South Sudan|SS|211;Spain|ES|34;Sri Lanka|LK|94;Sudan|SD|249;Suriname|SR|597;Sweden|SE|46;Switzerland|CH|41;Syria|SY|963;Taiwan|TW|886;Tajikistan|TJ|992;Tanzania|TZ|255;Thailand|TH|66;Timor-Leste|TL|670;Togo|TG|228;Tonga|TO|676;Trinidad and Tobago|TT|1;Tunisia|TN|216;Turkey|TR|90;Turkmenistan|TM|993;Uganda|UG|256;Ukraine|UA|380;United Arab Emirates|AE|971;United Kingdom|GB|44;United States|US|1;Uruguay|UY|598;Uzbekistan|UZ|998;Vanuatu|VU|678;Vatican City|VA|379;Venezuela|VE|58;Vietnam|VN|84;Yemen|YE|967;Zambia|ZM|260;Zimbabwe|ZW|263";
+  var COUNTRIES=CDATA.split(";").map(function(s){var p=s.split("|");return {n:p[0],iso:p[1],dial:p[2]};});
+  var EX={EG:"10 1234 5678",GB:"7911 123456",DE:"151 23456789",NL:"6 12345678",FR:"6 12 34 56 78",ES:"612 34 56 78",IT:"312 345 6789",AE:"50 123 4567",SA:"51 234 5678",US:"201 555 0123",RU:"912 345 6789",IN:"98765 43210",CN:"131 2345 6789",TR:"532 123 4567",QA:"3312 3456",KW:"500 12345"};
+  var curDial={iso:"EG",dial:"20"};
+  function flag(iso){return iso.replace(/./g,function(c){return String.fromCodePoint(127397+c.charCodeAt(0));});}
+  function findIso(iso){for(var i=0;i<COUNTRIES.length;i++){if(COUNTRIES[i].iso===iso)return COUNTRIES[i];}return null;}
+  function cFilter(q){q=(q||"").trim().toLowerCase();if(!q)return COUNTRIES;return COUNTRIES.filter(function(c){return c.n.toLowerCase().indexOf(q)>=0||("+"+c.dial).indexOf(q)===0;});}
+  function cItem(c,withCode){return '<div class="mi" data-iso="'+c.iso+'"><span class="cflag">'+flag(c.iso)+'</span><span class="nm">'+c.n+'</span>'+(withCode?'<span class="code">+'+c.dial+'</span>':'')+'</div>';}
+  function setDial(iso){var c=findIso(iso);if(!c)return;curDial={iso:c.iso,dial:c.dial};$('dialFlag').textContent=flag(c.iso);$('dialCode').textContent="+"+c.dial;var ex=EX[c.iso];$('phone').setAttribute("placeholder",ex||"your number");$('telHint').innerHTML=ex?('Enter your number <b>without the leading 0</b> — e.g. '+ex):('Enter your number <b>without the leading 0</b> (we’ve added +'+c.dial+')');}
+
+  /* country combobox */
+  (function(){
+    var inp=$('country'), menu=$('countryMenu');
+    function render(q){var list=cFilter(q).slice(0,60);menu.innerHTML=list.length?list.map(function(c){return cItem(c,false);}).join(""):'<div class="mi-empty">No match</div>';}
+    function open(){render(inp.value);menu.classList.add("open");inp.setAttribute("aria-expanded","true");}
+    function close(){menu.classList.remove("open");inp.setAttribute("aria-expanded","false");}
+    inp.addEventListener("focus",open); inp.addEventListener("input",open);
+    inp.addEventListener("blur",function(){setTimeout(close,140);});
+    inp.addEventListener("keydown",function(e){if(e.key==="Escape")close();if(e.key==="Enter"){e.preventDefault();var f=menu.querySelector(".mi");if(f){var c=findIso(f.getAttribute("data-iso"));inp.value=c.n;setDial(c.iso);close();}}});
+    menu.addEventListener("mousedown",function(e){var mi=e.target.closest?e.target.closest(".mi"):null;if(!mi)return;e.preventDefault();var c=findIso(mi.getAttribute("data-iso"));inp.value=c.n;setDial(c.iso);close();});
+  })();
+
+  /* phone dial-code picker */
+  (function(){
+    var btn=$('dialBtn'), menu=$('dialMenu');
+    menu.innerHTML='<div class="search"><input type="text" id="dialSearch" placeholder="Search country or code" inputmode="search" autocomplete="off"/></div><div class="mlist"></div>';
+    var search=$('dialSearch'), list=menu.querySelector(".mlist");
+    function render(q){var r=cFilter(q).slice(0,80);list.innerHTML=r.length?r.map(function(c){return cItem(c,true);}).join(""):'<div class="mi-empty">No match</div>';}
+    function open(){render("");menu.classList.add("open");search.value="";setTimeout(function(){search.focus();},30);}
+    function close(){menu.classList.remove("open");}
+    btn.addEventListener("click",function(e){e.stopPropagation();menu.classList.contains("open")?close():open();});
+    search.addEventListener("input",function(){render(search.value);});
+    search.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+    menu.addEventListener("mousedown",function(e){var mi=e.target.closest?e.target.closest(".mi"):null;if(!mi)return;e.preventDefault();setDial(mi.getAttribute("data-iso"));close();});
+    document.addEventListener("click",function(e){if(!menu.contains(e.target)&&e.target!==btn&&!btn.contains(e.target))close();});
+  })();
+
+  /* describes-you (multi) */
+  document.querySelectorAll('#who .pill').forEach(function(p){ p.addEventListener('click',function(){ p.classList.toggle('on'); }); });
+  /* produce chips (multi) */
+  document.querySelectorAll('#prods .chip').forEach(function(c){
+    c.addEventListener('click',function(){ c.classList.toggle('on');
+      if(c.id==='prodOther'){ var oi=$('products_other'); oi.style.display=c.classList.contains('on')?'block':'none'; if(c.classList.contains('on')) oi.focus(); else oi.value=''; }
+    });
+  });
+  /* consent gates submit */
+  var consent=$('consent'), submit=$('submit');
+  consent.addEventListener('change',function(){ submit.disabled=!consent.checked; });
+
+  function val(id){var e=$(id);return e?(e.value||'').trim():'';}
+  function selected(sel){return [].map.call(document.querySelectorAll(sel),function(x){return x.getAttribute('data-v');});}
+  function showErr(t){ var m=$('msg'); m.className='msg err'; m.textContent=t; }
+
+  var form=$('form');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    $('msg').className='msg';
+    var company=val('company'), email=val('email');
+    var okC=!!company, okE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    $('company').classList.toggle('bad',!okC); $('email').classList.toggle('bad',!okE);
+    if(!okC||!okE){ showErr(!okC?'Please add your company name.':'Please check your email address.'); ( !okC?$('company'):$('email') ).focus(); return; }
+    if(!consent.checked) return;
+
+    var desc=selected('#who .pill.on');
+    var IMP={'Importer / Agent':'Agent','Retailer':'Retailer','Wholesaler':'Wholesaler'};
+    var EXP={'Grower':1,'Trader':1,'Association':1};
+    var importer=desc.filter(function(d){return IMP[d];}).map(function(d){return IMP[d];});
+    var exporter=desc.filter(function(d){return EXP[d];});
+    var products=selected('#prods .chip.on').filter(function(v){return v!=='Other';});
+    var natl=val('phone');
+    var phone=natl?('+'+curDial.dial+' '+natl):'';
+
+    var payload={
+      exporter_type:exporter.join(', '), importer_type:importer.join(', '),
+      type_other:(desc.indexOf('Other')>=0?'Other':''), descriptors:desc,
+      name:val('name'), role:val('role'), company:company, phone:phone, email:email,
+      country:val('country'),
+      products_industries:val('products_industries'), trade_countries:val('trade_countries'), annual_quantity:val('annual_quantity'),
+      product_interest:products, products_other:val('products_other'), notes:val('notes'),
+      consent:consent.checked
+    };
+
+    submit.disabled=true; submit.textContent='Sending…';
+    var ctrl=new AbortController(), to=setTimeout(function(){ctrl.abort();},12000);
+    fetch(EP,{ method:'POST', headers:{'content-type':'application/json'}, signal:ctrl.signal,
+      body:JSON.stringify({ token:token, hp:val('hp'), payload:payload }) })
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok,j:j}; }); })
+    .then(function(res){ clearTimeout(to);
+      if(res.ok && res.j && res.j.ok){ $('card').style.display='none'; $('done').classList.add('show'); window.scrollTo(0,0); }
+      else { submit.disabled=false; submit.textContent='Submit registration'; showErr('Sorry — that didn’t go through. Please try again.'); }
+    })
+    .catch(function(err){ clearTimeout(to); submit.disabled=false; submit.textContent='Submit registration';
+      showErr(err&&err.name==='AbortError' ? 'That took too long — check your signal and tap Submit again.' : 'Network error — please try again.');
+    });
+  });
+})();
+</script>
+</body>
+</html>
