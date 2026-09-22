@@ -144,7 +144,8 @@
   [dir=rtl] .hero h1,[dir=rtl] .done h2{font-family:var(--body)}
   [dir=rtl] .sec{font-family:var(--body);letter-spacing:normal}
   [dir=rtl] .ev-name{letter-spacing:normal}
-  [dir=rtl] .mi .code{margin-left:0;margin-right:auto}
+  [dir=rtl] .mi .code{margin-left:0;margin-right:auto;direction:ltr}
+  [dir=rtl] .dial{direction:ltr}   /* keep flag +code caret in LTR order so "+20" doesn't render as "20+" */
   [dir=rtl] .chip .tick{right:auto;left:0;border-radius:12px 0 0 0}
   [dir=rtl] .chip .tick:after{right:auto;left:1px}
   #phone,#email{direction:ltr}
